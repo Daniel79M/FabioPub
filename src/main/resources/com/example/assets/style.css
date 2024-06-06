@@ -1,0 +1,39 @@
+.table{
+    -fx-background-color: #1892ef;
+}
+.homeHbox{
+
+}
+
+.homeHbox:hover{
+    -fx-background-color:#0078D7;
+    -fx-border-color:#fff;
+    -fx-border-width:2px;
+    -fx-border-radius:15px;
+    -fx-background-radius:15px;
+    -fx-border-style: solid;
+}
+
+.btn1{
+    -fx-background-color:#fff;
+    -fx-border-width:2px;
+    -fx-border-color:#1892ef;
+}
+
+.btn1:hover{
+    -fx-border-style:solid;
+    -fx-border-width:2px;
+    -fx-border-color:#000;
+}
+
+.btn2{
+    -fx-background-color:#eb0c0c;
+    -fx-text-color:#FFF;
+}
+
+.btn2:hover{
+    -fx-border-style: solid;
+    -fx-border-color:#000;
+    -fx-border-width:2px;
+
+}

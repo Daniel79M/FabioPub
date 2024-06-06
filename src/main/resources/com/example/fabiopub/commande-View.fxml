@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fabiopub.controllers.CommandeController">
+   <children>
+      <HBox alignment="CENTER" layoutY="7.0" prefHeight="160.0" prefWidth="1000.0" spacing="40.0">
+         <children>
+            <Label text="Veuillez remplire le formulaire de commande">
+               <font>
+                  <Font name="SansSerif Bold" size="24.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </HBox>
+      <HBox layoutY="192.0" prefHeight="453.0" prefWidth="1000.0">
+         <children>
+            <VBox alignment="CENTER_LEFT" prefHeight="407.0" prefWidth="500.0">
+               <children>
+                  <Label text="Nom ">
+                     <VBox.margin>
+                        <Insets bottom="8.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="SansSerif Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="commandeNameTextField" prefHeight="40.0" prefWidth="350.0" promptText="Veuillez donner un nom à la commande">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="SansSerif Bold Italic" size="13.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="40.0" layoutY="230.0" text="Types">
+                     <VBox.margin>
+                        <Insets bottom="8.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="SansSerif Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="commendTypeTextField" layoutX="40.0" layoutY="256.0" prefHeight="40.0" prefWidth="350.0" promptText="Entrer le type de la commande">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="SansSerif Bold Italic" size="13.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="40.0" layoutY="277.0" text="Proprietaire de la commande">
+                     <VBox.margin>
+                        <Insets bottom="8.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="SansSerif Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="commandeClientNametTextField" layoutX="40.0" layoutY="295.0" prefHeight="40.0" prefWidth="350.0" promptText="Renseigner le nom complert du client ">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="SansSerif Bold Italic" size="13.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="40.0" layoutY="306.0" text="Date de commande">
+                     <VBox.margin>
+                        <Insets bottom="8.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="SansSerif Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <DatePicker fx:id="commandeDate" prefHeight="40.0" prefWidth="450.0" promptText="JJ/MM/AAAA">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </DatePicker>
+                  <Label layoutX="40.0" layoutY="335.0" text="Date de rendez-vous pour la livraison">
+                     <VBox.margin>
+                        <Insets bottom="8.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="SansSerif Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <DatePicker fx:id="livraisonDate" layoutX="40.0" layoutY="354.0" prefHeight="40.0" prefWidth="450.0" promptText="JJ/MM/AAAA" />
+               </children>
+               <padding>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </padding>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="515.0" prefWidth="500.0">
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+               <children>
+                  <Label text="Montant">
+                     <font>
+                        <Font name="SansSerif Bold" size="13.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="8.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField fx:id="commandPriceTextField" prefHeight="40.0" prefWidth="350.0" promptText="Veuillez entrer le prix la commande">
+                     <font>
+                        <Font name="SansSerif Bold Italic" size="13.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Label layoutX="50.0" layoutY="139.0" text="Quantité">
+                     <font>
+                        <Font name="SansSerif Bold" size="13.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="8.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField fx:id="commandequantityTextField" layoutX="50.0" layoutY="163.0" prefHeight="40.0" prefWidth="350.0" promptText="Veuillez entrer la quantité  la commande">
+                     <font>
+                        <Font name="SansSerif Bold Italic" size="13.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Label text="Description de la commande">
+                     <VBox.margin>
+                        <Insets bottom="8.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="SansSerif Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <TextArea fx:id="commandeDescriptionArea" prefHeight="40.0" prefWidth="200.0" promptText="Ecrire une dèscription de la commande ">
+                     <font>
+                        <Font name="SansSerif Bold Italic" size="13.0" />
+                     </font>
+                  </TextArea>
+                  <Label text="Choisir une image correspondant à la command">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="SansSerif Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER" spacing="20.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#getFiles" prefHeight="30.0" prefWidth="120.0" text="Choisir">
+                           <font>
+                              <Font name="SansSerif Bold" size="13.0" />
+                           </font>
+                        </Button>
+                        <TextArea fx:id="filesArea" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="113.0" prefWidth="200.0" />
+                        <Button layoutX="70.0" layoutY="55.0" mnemonicParsing="false" onAction="#getText" prefHeight="30.0" prefWidth="120.0" text="Afficher">
+                           <font>
+                              <Font name="SansSerif Bold" size="13.0" />
+                           </font>
+                        </Button>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <Separator layoutY="161.0" prefHeight="12.0" prefWidth="1000.0" />
+      <Button layoutX="385.0" layoutY="654.0" mnemonicParsing="false" onAction="#createCommande" prefHeight="30.0" prefWidth="100.0" styleClass="btn1" stylesheets="@../assets/style.css" text="Soumèttre">
+         <font>
+            <Font name="SansSerif Bold" size="13.0" />
+         </font>
+      </Button>
+      <Button layoutX="549.0" layoutY="654.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" styleClass="btn2" stylesheets="@../assets/style.css" text="Annuler" textFill="WHITE">
+         <font>
+            <Font name="SansSerif Bold" size="13.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
