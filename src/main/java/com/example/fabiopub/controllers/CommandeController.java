@@ -1,13 +1,13 @@
 package com.example.fabiopub.controllers;
 
 import com.example.fabiopub.models.Commande;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -24,6 +24,36 @@ import java.util.ResourceBundle;
 import java.util.Scanner;
 
 public class CommandeController implements Initializable {
+    private ObservableList<Commande> commandes;
+    @FXML
+    private TableColumn<Commande, Integer> IdCol;
+
+    @FXML
+    private TableColumn<Commande, String> clientCol;
+
+    @FXML
+    private TableView<Commande> commandeTable;
+
+    @FXML
+    private TableColumn<Commande, Date> dateCol;
+
+    @FXML
+    private TableColumn<Commande, Date> deliveryCol;
+
+    @FXML
+    private TableColumn<Commande, String> descriptionCol;
+
+    @FXML
+    private TableColumn<Commande, String> nameCol;
+
+    @FXML
+    private TableColumn<Commande, Float> priceCol;
+
+    @FXML
+    private TableColumn<Commande, String> quantityCol;
+
+    @FXML
+    private TableColumn<Commande, String> typeCol;
 
     @FXML
     private TextField commandPriceTextField;
@@ -63,7 +93,7 @@ public class CommandeController implements Initializable {
         Date dateOfCommande = Date.valueOf(this.commandeDate.getValue());
         Date deliveryDate = Date.valueOf(this.commandeDate.getValue());
         String price = this.commandPriceTextField.getText();
-        int quantity = Integer.parseInt(this.commandequantityTextField.getText());
+        String quantity = this.commandequantityTextField.getText();
         String descriptions = this.commandeDescriptionArea.getText();
 
         Commande commande = new Commande();
@@ -72,28 +102,6 @@ public class CommandeController implements Initializable {
         commande.setType(type);
         commande.setClientName(clientName);
         commande.setDateOfCommande(dateOfCommande);
-        try {
-            commande.setDeliveryDate(deliveryDate);
-        }catch (Exception e){
-
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Alert");
-            alert.setContentText("Date de livraison incorrect ");
-            alert.showAndWait();
-            return;
-        }
-        try{
-            commande.setQuantity(quantity);
-        }catch (Exception e){
-
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Alert");
-            alert.setContentText("veuiller entrer un chiffre ");
-            alert.showAndWait();
-            return;
-        }
-
-
         try {
             commande.getDateOfCommande();
         }catch (Exception e){
@@ -104,6 +112,18 @@ public class CommandeController implements Initializable {
             alert.showAndWait();
             return;
         }
+
+        try {
+            commande.setDeliveryDate(deliveryDate);
+        }catch (Exception e){
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Alert");
+            alert.setContentText("Date de livraison incorrect ");
+            alert.showAndWait();
+            return;
+        }
+        commande.setQuantity(quantity);
         commande.setPrice(Float.valueOf(price));
         commande.setDescriptions(descriptions);
 
@@ -163,4 +183,31 @@ public class CommandeController implements Initializable {
             e.printStackTrace();
         }
     }
+
+    //table view methode
+
+    public void View(){
+        commandes = FXCollections.observableArrayList(commandes);
+
+        IdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("nameOfCommande"));
+        typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        clientCol.setCellValueFactory(new PropertyValueFactory<>("clientName"));
+        dateCol.setCellValueFactory(new PropertyValueFactory<>("dateOfCommande"));
+        deliveryCol.setCellValueFactory(new PropertyValueFactory<>("deliveryDate"));
+        priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+        quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        descriptionCol.setCellValueFactory(new PropertyValueFactory<>("descriptions"));
+
+        Commande commande =new Commande();
+
+        try {
+            commandes.addAll(commande.list());
+            commandeTable.setItems(commandes);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 }

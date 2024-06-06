@@ -50,7 +50,7 @@
                   <HBox alignment="CENTER_LEFT" spacing="20.0" styleClass="homeHbox" stylesheets="@../assets/style.css">
                      <children>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label text="Liste des commandes" textFill="WHITE">
+                        <Label onMouseClicked="#readCommande" text="Liste des commandes" textFill="WHITE">
                            <font>
                               <Font name="SansSerif Bold" size="14.0" />
                            </font>

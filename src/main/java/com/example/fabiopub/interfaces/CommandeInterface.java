@@ -9,5 +9,5 @@ public interface CommandeInterface {
     void create(Commande commande) throws SQLException;
     void update(Commande commande) throws SQLException;
     void cancel(int id);
-    List<Commande> list();
+    List<Commande> list() throws SQLException;
 }
