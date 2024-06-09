@@ -1,4 +1,4 @@
-package com.example.fabiopub.models;
+package com.example.fabiopub.Entity;
 
 import com.example.fabiopub.dataConfig.IDBconfig;
 import com.example.fabiopub.interfaces.CommandeInterface;
@@ -11,7 +11,7 @@ import static java.lang.String.valueOf;
 
 public class Commande implements CommandeInterface {
 
-    private String id;
+    private int id ;
 
     private String nameOfCommande;
 
@@ -32,11 +32,11 @@ public class Commande implements CommandeInterface {
 
     private Connection connection;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -134,63 +134,76 @@ public class Commande implements CommandeInterface {
     }
 
     @Override
-    public void update(Commande commande) {
-
-    }
-
-    @Override
-    public void cancel(int id) {
-
-    }
-
-    @Override
-    public List<Commande> list() throws SQLException {
-        List<Commande> commandes = new ArrayList<>();
+    public Commande update(Commande commande) {
         connection = IDBconfig.getConnetion();
-        if(connection != null ){
-            String req = "SELECT * FROM commande";
-            PreparedStatement preparedStatement = this.connection.prepareCall(req);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()){
-                Commande commande = new Commande();
-                commande.setId(resultSet.getString(id));
-                commande.setNameOfCommande(resultSet.getString(nameOfCommande));
-                commande.setType(resultSet.getString(type));
-                commande.setClientName(resultSet.getString(clientName));
-                commande.setDateOfCommande(resultSet.getDate(valueOf(dateOfCommande)));
-                commande.setDeliveryDate(resultSet.getDate(valueOf(deliveryDate)));
-                commande.setPrice(resultSet.getFloat(valueOf(price)));
-                commande.setQuantity(resultSet.getString(quantity));
-                commande.setDescriptions(resultSet.getString(descriptions));
-
-                commandes.add(commande);
+        if (connection != null) {
+            String update = "UPDATE commande SET nameOfCommande = ?, type = ?, clientName = ?, dateOfCommande = ?, deliveryDate = ?, price = ?, quantity = ?, descriptions = ? WHERE id = ?";
+            try {
+                PreparedStatement preparedStatement = this.connection.prepareStatement(update);
+                preparedStatement.setString(1, nameOfCommande);
+                preparedStatement.setString(2, type);
+                preparedStatement.setString(3, clientName);
+                preparedStatement.setDate(4, dateOfCommande);
+                preparedStatement.setDate(5, deliveryDate);
+                preparedStatement.setFloat(6, price);
+                preparedStatement.setString(7, quantity);
+                preparedStatement.setString(8, descriptions);
+                preparedStatement.setInt(9, commande.id);
+                preparedStatement.executeUpdate();
+                commande.update(commande);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
-            preparedStatement.close();
-            this.connection.close();
+        }
+        
+        return commande;
+    }
+
+    @Override
+    public void delete(int id) {
+        connection = IDBconfig.getConnetion();
+        if (connection != null){
+            String req = "DELETE FROM commande WHERE id = ?";
+            try {
+                PreparedStatement preparedStatement = this.connection.prepareStatement(req);
+                preparedStatement.setInt(1,id);
+                preparedStatement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
 
         }
-        return commandes;
+
+
     }
-//    public List<Product> list() throws SQLException {
-//        List<Product> products = new ArrayList<>();
-//        connection = IDBConfig.getConnection();
-//        if (connection != null) {
-//            String req = "SELECT * FROM products";
-//            PreparedStatement prepareStatement = this.connection.prepareStatement(req);
-//            ResultSet resultSet = prepareStatement.executeQuery();
-//            while (resultSet.next()) {
-//                Product product = new Product();
-//                product.setId(resultSet.getInt("id"));
-//                product.setName(resultSet.getString("name"));
-//                product.setDescription(resultSet.getString("description"));
-//                product.setQuantity(resultSet.getInt("quantity"));
-//                product.setThresholdQuantity(resultSet.getInt("thresholdQuantity")
-//                );
-//                products.add(product);
-//            }
-//            prepareStatement.close();
-//            this.connection.close();
-//        }
-//        return products;
-//    }
+
+    @Override
+    public List<Commande>list() throws SQLException {
+        List<Commande> commande = new ArrayList<>();
+
+        connection = IDBconfig.getConnetion();
+
+        if (connection != null){
+            String req = "SELECT * FROM commande";
+
+            PreparedStatement preparedStatement = this.connection.prepareStatement(req);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                Commande command = new Commande();
+                command.setId(resultSet.getInt("id"));
+                command.setNameOfCommande(resultSet.getString("nameOfCommande"));
+                command.setType(resultSet.getString("type"));
+                command.setClientName(resultSet.getString("clientName"));
+                command.setDateOfCommande(resultSet.getDate(valueOf("dateOfCommande")));
+                command.setDeliveryDate(resultSet.getDate(valueOf("deliveryDate")));
+                command.setPrice(resultSet.getFloat(valueOf("price")));
+                command.setQuantity(resultSet.getString("quantity"));
+                command.setDescriptions(resultSet.getString("descriptions"));
+
+                commande.add(command);
+            }
+
+        }
+        return commande;
+    }
 }

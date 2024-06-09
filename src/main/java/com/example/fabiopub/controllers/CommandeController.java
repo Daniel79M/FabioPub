@@ -1,6 +1,6 @@
 package com.example.fabiopub.controllers;
 
-import com.example.fabiopub.models.Commande;
+import com.example.fabiopub.Entity.Commande;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,52 +9,46 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
-import javax.swing.*;
-import java.awt.event.MouseEvent;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 
 public class CommandeController implements Initializable {
-    private ObservableList<Commande> commandes;
     @FXML
-    private TableColumn<Commande, Integer> IdCol;
+    private Button AgreeButton;
+    @FXML
+    private javafx.scene.control.Button CancelButton;
+    @FXML
+    private Button updateButton;
+    @FXML
+    private Button deletebutton;
 
+    private ObservableList<Commande> commandes ;
+    @FXML
+    private TableColumn<Commande, Integer> IdCol ;
     @FXML
     private TableColumn<Commande, String> clientCol;
-
     @FXML
     private TableView<Commande> commandeTable;
-
     @FXML
-    private TableColumn<Commande, Date> dateCol;
-
+    private TableColumn<Commande, Date> dateCol ;
     @FXML
-    private TableColumn<Commande, Date> deliveryCol;
-
+    private TableColumn<Commande, Date> deliveryCol ;
     @FXML
     private TableColumn<Commande, String> descriptionCol;
-
     @FXML
     private TableColumn<Commande, String> nameCol;
-
     @FXML
     private TableColumn<Commande, Float> priceCol;
-
     @FXML
     private TableColumn<Commande, String> quantityCol;
-
     @FXML
     private TableColumn<Commande, String> typeCol;
 
+    private Commande commande = new Commande();
     @FXML
     private TextField commandPriceTextField;
 
@@ -80,13 +74,14 @@ public class CommandeController implements Initializable {
     private TextArea filesArea;
 
     @FXML
-    private DatePicker livraisonDate;
+    private DatePicker commandeDeliveryDate;
 
     FileChooser fileChooser = new FileChooser();
-
+     int id = 0;
     @FXML
-    void createCommande() throws SQLException {
+    private void createCommande() throws SQLException {
 
+        id = this.commande.getId();
         String nameOfCommande = this.commandeNameTextField.getText().trim();
         String type = this.commendTypeTextField.getText().trim();
         String clientName = this.commandeClientNametTextField.getText().trim() ;
@@ -97,7 +92,6 @@ public class CommandeController implements Initializable {
         String descriptions = this.commandeDescriptionArea.getText();
 
         Commande commande = new Commande();
-
         commande.setNameOfCommande(nameOfCommande);
         commande.setType(type);
         commande.setClientName(clientName);
@@ -112,7 +106,6 @@ public class CommandeController implements Initializable {
             alert.showAndWait();
             return;
         }
-
         try {
             commande.setDeliveryDate(deliveryDate);
         }catch (Exception e){
@@ -129,66 +122,36 @@ public class CommandeController implements Initializable {
 
         commande.create(commande);
 
-
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Alert");
+        alert.setTitle("Information");
         alert.setContentText("La commande a belle et bien été enregistré");
         alert.showAndWait();
-    }
-
-    private void saveSystem(File file, String contain) throws FileNotFoundException {
-        try {
-            PrintWriter printWriter = new PrintWriter(file);
-            printWriter.write(contain);
-            printWriter.close();
-        }catch (FileNotFoundException e){
-            e.printStackTrace();
-        }
-    }
-
-    void getText(MouseEvent event) throws FileNotFoundException {
-        File file =fileChooser.showOpenDialog(new Stage());
-
-            try {
-                Scanner scanner = new Scanner(file);
-                while (scanner.hasNextLine()){
-                    filesArea.appendText(scanner.nextLine() +"\n");
-                }
-            }catch(FileNotFoundException e){
-                    e.printStackTrace();
-        }
+        readCommande();
+        commandeNameTextField.setText(null);
+        commendTypeTextField.setText(null);
+        commandeClientNametTextField.setText(null);
+        commandeDate.setValue(null);
+        commandeDeliveryDate.setValue(null);
+        commandPriceTextField.setText(null);
+        commandequantityTextField.setText(null);
+        commandeDescriptionArea.setText(null);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         fileChooser.setInitialDirectory(new File("C:\\Users\\LENOVO\\OneDrive\\Bureau\\JAVA\\Javafx\\fabioPub\\src\\main\\resources\\com\\example\\fabiopub"));
-    }
-
-    public void getFiles(ActionEvent actionEvent) throws FileNotFoundException {
-        File file = fileChooser.showOpenDialog(new Stage());
-        if (file != null){
-            saveSystem(file,filesArea.getText());
-        }
-    }
-
-    public void getText(ActionEvent actionEvent) {
-        File file =fileChooser.showOpenDialog(new Stage());
 
         try {
-            Scanner scanner = new Scanner(file);
-            while (scanner.hasNextLine()){
-                filesArea.appendText(scanner.nextLine() +"\n");
-            }
-        }catch(FileNotFoundException e){
-            e.printStackTrace();
+            readCommande();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    //table view methode
+    public void readCommande() throws SQLException {
+        commandes = FXCollections.observableArrayList();
 
-    public void View(){
-        commandes = FXCollections.observableArrayList(commandes);
-
+        commandeTable.setItems(commandes);
         IdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameCol.setCellValueFactory(new PropertyValueFactory<>("nameOfCommande"));
         typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
@@ -198,16 +161,101 @@ public class CommandeController implements Initializable {
         priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
         quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<>("descriptions"));
-
-        Commande commande =new Commande();
-
+        Commande commande = new Commande();
         try {
             commandes.addAll(commande.list());
             commandeTable.setItems(commandes);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+    }
+    @FXML
+    private void updatecommande() throws SQLException {
+
+        commande.update(commande);
+
+
     }
 
+    @FXML
+    void deleteCommande(ActionEvent event) throws SQLException {
+
+        commande.delete(id);
+        readCommande();
+
+    }
+    @FXML
+    void canceled(ActionEvent event) throws SQLException {
+        commandeNameTextField.setText(null);
+        commendTypeTextField.setText(null);
+        commandeClientNametTextField.setText(null);
+        commandeDate.setValue(null);
+        commandeDeliveryDate.setValue(null);
+        commandPriceTextField.setText(null);
+        commandequantityTextField.setText(null);
+        commandeDescriptionArea.setText(null);
+        AgreeButton.setDisable(false);
+        readCommande();
+    }
+
+    @FXML
+    private void getData(){
+        commande = commandeTable.getSelectionModel().getSelectedItem();
+
+        commandeNameTextField.setText(commande.getNameOfCommande());
+        commendTypeTextField.setText(commande.getType());
+        commandeClientNametTextField.setText(commande.getClientName());
+//        commandeDate.setValue(commande.getDateOfCommande());
+//        commandeDeliveryDate.setValue(commande.getDeliveryDate());
+//        commandPriceTextField.setText(commande.getPrice());
+        commandequantityTextField.setText(commande.getQuantity());
+        commandeDescriptionArea.setText(commande.getDescriptions());
+        AgreeButton.setDisable(true);
+
+    }
+
+
+//    public void getFiles(ActionEvent actionEvent) throws FileNotFoundException {
+//        File file = fileChooser.showOpenDialog(new Stage());
+//        if (file != null){
+//            saveSystem(file,filesArea.getText());
+//        }
+//    }
+//
+//    public void getText(ActionEvent actionEvent) {
+//        File file =fileChooser.showOpenDialog(new Stage());
+//
+//        try {
+//            Scanner scanner = new Scanner(file);
+//            while (scanner.hasNextLine()){
+//                filesArea.appendText(scanner.nextLine() +"\n");
+//            }
+//        }catch(FileNotFoundException e){
+//            e.printStackTrace();
+//        }
+//    }
+    //    private void saveSystem(File file, String contain) throws FileNotFoundException {
+//        try {
+//            PrintWriter printWriter = new PrintWriter(file);
+//            printWriter.write(contain);
+//            printWriter.close();
+//        }catch (FileNotFoundException e){
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    void getText(MouseEvent event) throws FileNotFoundException {
+//        File file =fileChooser.showOpenDialog(new Stage());
+//
+//            try {
+//                Scanner scanner = new Scanner(file);
+//                while (scanner.hasNextLine()){
+//                    filesArea.appendText(scanner.nextLine() +"\n");
+//                }
+//            }catch(FileNotFoundException e){
+//                    e.printStackTrace();
+//        }
+//    }
 
 }

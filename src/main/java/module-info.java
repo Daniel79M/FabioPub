@@ -9,6 +9,6 @@ module com.example.fabiopub {
     exports com.example.fabiopub;
     opens com.example.fabiopub.controllers to javafx.fxml;
     exports com.example.fabiopub.controllers;
-    opens com.example.fabiopub.models to javafx.fxml;
-    exports com.example.fabiopub.models;
+    opens com.example.fabiopub.Entity to javafx.fxml;
+    exports com.example.fabiopub.Entity;
 }

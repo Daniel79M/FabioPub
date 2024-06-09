@@ -1,29 +1,31 @@
 .table{
-    -fx-background-color: #1892ef;
-}
-.homeHbox{
-
+    -fx-background-color:#4E4F4D ;
 }
 
+.pane{
+
+}
 .homeHbox:hover{
-    -fx-background-color:#0078D7;
-    -fx-border-color:#fff;
-    -fx-border-width:2px;
+    -fx-background-color:#C4C4C3;
     -fx-border-radius:15px;
     -fx-background-radius:15px;
     -fx-border-style: solid;
 }
 
 .btn1{
-    -fx-background-color:#fff;
-    -fx-border-width:2px;
-    -fx-border-color:#1892ef;
+    -fx-background-color:#0078D7;
+    -fx-border-radius:5px;
+    -fx-background-radius:5px;
+    -fx-text-color:#FFF;
+
 }
 
 .btn1:hover{
     -fx-border-style:solid;
     -fx-border-width:2px;
-    -fx-border-color:#000;
+    -fx-border-color:#FFF;
+    -fx-border-radius:5px;
+    -fx-background-radius:5px;
 }
 
 .btn2{
@@ -33,7 +35,19 @@
 
 .btn2:hover{
     -fx-border-style: solid;
-    -fx-border-color:#000;
+    -fx-border-color:#FFF;
     -fx-border-width:2px;
+    -fx-border-radius:5px;
+    -fx-background-radius:5px;
+}
+.barner{
+    -fx-background-color:#C4C4C3;
+}
+.text_box{
+    -fx-background-color:#FFF;
+    -fx-background-radius:10px;
+}
 
+.text-description{
+    -fx-background-color:#4E4F4D;
 }
