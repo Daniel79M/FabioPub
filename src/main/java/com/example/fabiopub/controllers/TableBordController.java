@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
@@ -12,9 +13,27 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class TableBordController implements Initializable {
+public class TableBordController  implements Initializable {
     @FXML
     private StackPane containerStackpane;
+    @FXML
+    private HBox aideBox;
+
+    @FXML
+    private HBox bilanBox;
+
+    @FXML
+    private HBox commandeBox;
+
+    @FXML
+    private HBox livrasonBox;
+
+    @FXML
+    private HBox parametrebox;
+
+    @FXML
+    private HBox profilebox;
+
 
     public String show;
     @FXML
@@ -23,22 +42,18 @@ public class TableBordController implements Initializable {
         reDirector(show);
     }
 
-//    public void readCommande() throws IOException {
-//        this.show = "sa.fxml";
-//        reDirector(show);
-//    }
 
-    public void createCommande() throws IOException {
-
+    public void loadCommande() throws IOException {
         this.show = "commande-View.fxml";
         reDirector(show);
     }
 
-    private void reDirector(String show) throws IOException {
+    public void reDirector(String show) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(HelloApplication.class.getResource(show)));
         containerStackpane.getChildren().removeAll();
         containerStackpane.getChildren().setAll(root);
     }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -50,5 +65,13 @@ public class TableBordController implements Initializable {
         }
         containerStackpane.getChildren().removeAll();
         containerStackpane.getChildren().setAll(root);
+
+//        commandeBox.setDisable(true);
+//        bilanBox.setDisable(true);
+//        livrasonBox.setDisable(true);
+//        parametrebox.setDisable(true);
+//        aideBox.setDisable(true);
+//        profilebox.setDisable(true);
     }
+
 }

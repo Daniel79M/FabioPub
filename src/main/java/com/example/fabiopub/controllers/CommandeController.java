@@ -1,6 +1,7 @@
 package com.example.fabiopub.controllers;
 
 import com.example.fabiopub.Entity.Commande;
+import com.example.fabiopub.interfaces.CommandeInterface;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,13 +11,13 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 
-import java.io.File;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 
-public class CommandeController implements Initializable {
+public class CommandeController implements Initializable, CommandeInterface{
     @FXML
     private Button AgreeButton;
     @FXML
@@ -25,7 +26,7 @@ public class CommandeController implements Initializable {
     private Button updateButton;
     @FXML
     private Button deletebutton;
-
+    @FXML
     private ObservableList<Commande> commandes ;
     @FXML
     private TableColumn<Commande, Integer> IdCol ;
@@ -48,7 +49,6 @@ public class CommandeController implements Initializable {
     @FXML
     private TableColumn<Commande, String> typeCol;
 
-    private Commande commande = new Commande();
     @FXML
     private TextField commandPriceTextField;
 
@@ -77,7 +77,11 @@ public class CommandeController implements Initializable {
     private DatePicker commandeDeliveryDate;
 
     FileChooser fileChooser = new FileChooser();
-     int id = 0;
+
+    private Commande commande = new Commande();
+
+    int id = 0;
+
     @FXML
     private void createCommande() throws SQLException {
 
@@ -126,7 +130,7 @@ public class CommandeController implements Initializable {
         alert.setTitle("Information");
         alert.setContentText("La commande a belle et bien été enregistré");
         alert.showAndWait();
-        readCommande();
+//        readCommande();
         commandeNameTextField.setText(null);
         commendTypeTextField.setText(null);
         commandeClientNametTextField.setText(null);
@@ -137,21 +141,42 @@ public class CommandeController implements Initializable {
         commandeDescriptionArea.setText(null);
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        fileChooser.setInitialDirectory(new File("C:\\Users\\LENOVO\\OneDrive\\Bureau\\JAVA\\Javafx\\fabioPub\\src\\main\\resources\\com\\example\\fabiopub"));
 
-        try {
-            readCommande();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    @FXML
+    private void getData(){
+        commande = commandeTable.getSelectionModel().getSelectedItem();
+
+        commandeNameTextField.setText(commande.getNameOfCommande());
+        commendTypeTextField.setText(commande.getType());
+        commandeClientNametTextField.setText(commande.getClientName());
+//        commandeDate.setValue(commande.getDateOfCommande());
+//        commandeDeliveryDate.setValue(commande.getDeliveryDate());
+//        commandPriceTextField.setText(commande.getPrice());
+        commandequantityTextField.setText(commande.getQuantity());
+        commandeDescriptionArea.setText(commande.getDescriptions());
+        AgreeButton.setDisable(true);
+
+    }
+
+    @FXML
+    void canceled(ActionEvent event) throws SQLException {
+        commandeNameTextField.setText(null);
+        commendTypeTextField.setText(null);
+        commandeClientNametTextField.setText(null);
+        commandeDate.setValue(null);
+        commandeDeliveryDate.setValue(null);
+        commandPriceTextField.setText(null);
+        commandequantityTextField.setText(null);
+        commandeDescriptionArea.setText(null);
+        AgreeButton.setDisable(false);
+//        readCommande();
     }
 
     public void readCommande() throws SQLException {
-        commandes = FXCollections.observableArrayList();
 
-        commandeTable.setItems(commandes);
+        commandes = FXCollections.observableArrayList(list());
+
+        commandeTable.setItems(list());
         IdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameCol.setCellValueFactory(new PropertyValueFactory<>("nameOfCommande"));
         typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
@@ -182,37 +207,73 @@ public class CommandeController implements Initializable {
     void deleteCommande(ActionEvent event) throws SQLException {
 
         commande.delete(id);
-        readCommande();
+//        readCommande();
 
     }
-    @FXML
-    void canceled(ActionEvent event) throws SQLException {
-        commandeNameTextField.setText(null);
-        commendTypeTextField.setText(null);
-        commandeClientNametTextField.setText(null);
-        commandeDate.setValue(null);
-        commandeDeliveryDate.setValue(null);
-        commandPriceTextField.setText(null);
-        commandequantityTextField.setText(null);
-        commandeDescriptionArea.setText(null);
-        AgreeButton.setDisable(false);
-        readCommande();
+
+
+//    FileChooser fileChooser = new FileChooser();
+
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        try {
+            commandes = FXCollections.observableList(list());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            commandeTable.setItems(list());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        IdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("nameOfCommande"));
+        typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        clientCol.setCellValueFactory(new PropertyValueFactory<>("clientName"));
+        dateCol.setCellValueFactory(new PropertyValueFactory<>("dateOfCommande"));
+        deliveryCol.setCellValueFactory(new PropertyValueFactory<>("deliveryDate"));
+        priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+        quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        descriptionCol.setCellValueFactory(new PropertyValueFactory<>("descriptions"));
+        Commande commande = new Commande();
+        try {
+            commandes.addAll(commande.list());
+            commandeTable.setItems(commandes);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+//        fileChooser.setInitialDirectory(new File("C:\\Users\\LENOVO\\OneDrive\\Bureau\\JAVA\\Javafx\\fabioPub\\src\\main\\resources\\com\\example\\fabiopub"));
+//
+//        try {
+//            readCommande();
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+
     }
 
-    @FXML
-    private void getData(){
-        commande = commandeTable.getSelectionModel().getSelectedItem();
+    @Override
+    public void create(Commande commande) throws SQLException {
 
-        commandeNameTextField.setText(commande.getNameOfCommande());
-        commendTypeTextField.setText(commande.getType());
-        commandeClientNametTextField.setText(commande.getClientName());
-//        commandeDate.setValue(commande.getDateOfCommande());
-//        commandeDeliveryDate.setValue(commande.getDeliveryDate());
-//        commandPriceTextField.setText(commande.getPrice());
-        commandequantityTextField.setText(commande.getQuantity());
-        commandeDescriptionArea.setText(commande.getDescriptions());
-        AgreeButton.setDisable(true);
+    }
 
+    @Override
+    public Commande update(Commande commande) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public void delete(int id) {
+
+    }
+
+    @Override
+    public ObservableList<Commande> list() throws SQLException {
+        return commandes;
     }
 
 

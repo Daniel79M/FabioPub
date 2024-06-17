@@ -1,5 +1,5 @@
 .table{
-    -fx-background-color:#4E4F4D ;
+    -fx-background-color:#000;
 }
 
 .pane{
@@ -41,13 +41,35 @@
     -fx-background-radius:5px;
 }
 .barner{
-    -fx-background-color:#C4C4C3;
+    -fx-background-color:#fff;
 }
 .text_box{
-    -fx-background-color:#FFF;
+    -fx-background-color:#C4C4C3;
     -fx-background-radius:10px;
 }
 
 .text-description{
-    -fx-background-color:#4E4F4D;
+    -fx-background-color:#E7B100;
+}
+
+.text-description:hover{
+    -fx-background-color:#FFDE5C;
+}
+
+.box{
+    -fx-background-color:#fff;
+    -fx-background-radius:15px;
+}
+
+.anchorpane{
+    -fx-background-color:#F4F4F4;
+    -fx-background-radius:15px;
+}
+
+.back{
+    -fx-background-color:#000;
+}
+
+.p{
+    -fx-cursor: hand;
 }

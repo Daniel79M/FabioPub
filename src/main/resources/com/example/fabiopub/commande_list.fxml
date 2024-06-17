@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="630.0" prefWidth="940.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fabiopub.HelloController">
+   <children>
+      <ScrollPane hbarPolicy="NEVER" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+         <content>
+            <TableView fx:id="commandeTable" fixedCellSize="-5.0" prefHeight="632.0" prefWidth="1550.0">
+               <columns>
+                  <TableColumn fx:id="IdCol" minWidth="50.0" prefWidth="-1.0" text="ID" />
+                  <TableColumn fx:id="nameCol" prefWidth="180.0" text="Nom de la commande" />
+                  <TableColumn fx:id="typeCol" prefWidth="180.0" text="Type de commande" />
+                  <TableColumn fx:id="clientCol" minWidth="0.0" prefWidth="180.0" text="Nom du client" />
+                  <TableColumn fx:id="dateCol" prefWidth="180.0" text="Date de commande" />
+                  <TableColumn fx:id="deliveryCol" minWidth="0.0" prefWidth="180.0" text="Date de livraison" />
+                  <TableColumn fx:id="priceCol" minWidth="0.0" prefWidth="180.0" text="Prix de la commande" />
+                  <TableColumn fx:id="quantityCol" prefWidth="180.0" text="Quantité de la commande" />
+                  <TableColumn fx:id="descriptionCol" prefWidth="253.0" text="Description de la Commande " />
+               </columns>
+            </TableView>
+         </content>
+      </ScrollPane>
+   </children>
+</VBox>

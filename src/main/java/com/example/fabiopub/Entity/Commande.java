@@ -183,7 +183,7 @@ public class Commande implements CommandeInterface {
 
         connection = IDBconfig.getConnetion();
 
-        if (connection != null){
+        if (connection != null) {
             String req = "SELECT * FROM commande";
 
             PreparedStatement preparedStatement = this.connection.prepareStatement(req);

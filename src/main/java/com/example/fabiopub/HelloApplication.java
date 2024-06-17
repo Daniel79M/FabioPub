@@ -19,14 +19,14 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
+        launch();
+
+    }
+//    public static void open(String[] args)[]
 //        File file = new File("src/main/resources/com/example/fabiopub/text.txt");
 //            try{
 //                file.createNewFile();
 //            }catch (IOException e){
 //                    e.printStackTrace();
 //            }
-        launch();
-
-    }
-//    public static void open(String[] args)[]
 }

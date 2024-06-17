@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -9,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="CENTER" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fabiopub.controllers.TableBordController">
+<HBox alignment="CENTER" styleClass="back" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fabiopub.controllers.TableBordController">
    <children>
       <VBox alignment="CENTER" prefHeight="700.0" styleClass="table" stylesheets="@../assets/style.css">
          <children>
@@ -20,7 +21,7 @@
             </ImageView>
             <VBox prefWidth="260.0" styleClass="table" stylesheets="@../assets/style.css">
                <children>
-                  <HBox alignment="CENTER_LEFT" onMouseClicked="#backToHome" prefHeight="40.0" spacing="10.0" styleClass="homeHbox" stylesheets="@../assets/style.css" VBox.vgrow="ALWAYS">
+                  <HBox alignment="CENTER_LEFT" onMouseClicked="#backToHome" prefHeight="40.0" spacing="10.0" stylesheets="@../assets/style.css" VBox.vgrow="ALWAYS">
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -34,10 +35,14 @@
                         </Label>
                      </children>
                      <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        <Insets bottom="10.0" left="40.0" right="10.0" top="10.0" />
                      </padding>
+                     <styleClass>
+                        <String fx:value="homeHbox" />
+                        <String fx:value="p" />
+                     </styleClass>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" onMouseClicked="#createCommande" prefHeight="40.0" spacing="10.0" styleClass="homeHbox" stylesheets="@../assets/style.css" VBox.vgrow="ALWAYS">
+                  <HBox fx:id="commandeBox" alignment="CENTER_LEFT" onMouseClicked="#loadCommande" prefHeight="40.0" spacing="10.0" stylesheets="@../assets/style.css" VBox.vgrow="ALWAYS">
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
                         <Label text="Crée une commande" textFill="WHITE">
@@ -47,83 +52,14 @@
                         </Label>
                      </children>
                      <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        <Insets bottom="10.0" left="40.0" right="10.0" top="10.0" />
                      </padding>
+                     <styleClass>
+                        <String fx:value="homeHbox" />
+                        <String fx:value="p" />
+                     </styleClass>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="40.0" spacing="10.0" styleClass="homeHbox" stylesheets="@../assets/style.css" VBox.vgrow="ALWAYS">
-                     <children>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label text="Liste des commandes" textFill="WHITE">
-                           <font>
-                              <Font name="SansSerif Bold" size="14.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="40.0" spacing="10.0" styleClass="homeHbox" stylesheets="@../assets/style.css" VBox.vgrow="ALWAYS">
-                     <children>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label text="Livraisons" textFill="WHITE">
-                           <font>
-                              <Font name="SansSerif Bold" size="14.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="40.0" spacing="10.0" styleClass="homeHbox" stylesheets="@../assets/style.css" VBox.vgrow="ALWAYS">
-                     <children>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../assets/icones/settings.png" />
-                           </image>
-                        </ImageView>
-                        <Label text="Paramètre" textFill="WHITE">
-                           <font>
-                              <Font name="SansSerif Bold" size="14.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="40.0" spacing="10.0" styleClass="homeHbox" stylesheets="@../assets/style.css" VBox.vgrow="ALWAYS">
-                     <children>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label text="Mon profile" textFill="WHITE">
-                           <font>
-                              <Font name="SansSerif Bold" size="14.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="40.0" spacing="10.0" styleClass="homeHbox" stylesheets="@../assets/style.css">
-                     <children>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../assets/icones/help.png" />
-                           </image>
-                        </ImageView>
-                        <Label text="Aide" textFill="WHITE">
-                           <font>
-                              <Font name="SansSerif Bold" size="14.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="40.0" spacing="10.0" styleClass="homeHbox" stylesheets="@../assets/style.css" VBox.vgrow="ALWAYS">
+                  <HBox fx:id="bilanBox" alignment="CENTER_LEFT" prefHeight="40.0" spacing="10.0" stylesheets="@../assets/style.css" VBox.vgrow="ALWAYS">
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -137,14 +73,94 @@
                         </Label>
                      </children>
                      <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        <Insets bottom="10.0" left="40.0" right="10.0" top="10.0" />
                      </padding>
+                     <styleClass>
+                        <String fx:value="homeHbox" />
+                        <String fx:value="p" />
+                     </styleClass>
+                  </HBox>
+                  <HBox fx:id="livrasonBox" alignment="CENTER_LEFT" prefHeight="40.0" spacing="10.0" stylesheets="@../assets/style.css" VBox.vgrow="ALWAYS">
+                     <children>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label text="Livraisons" textFill="WHITE">
+                           <font>
+                              <Font name="SansSerif Bold" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="40.0" right="10.0" top="10.0" />
+                     </padding>
+                     <styleClass>
+                        <String fx:value="homeHbox" />
+                        <String fx:value="p" />
+                     </styleClass>
+                  </HBox>
+                  <HBox fx:id="parametrebox" alignment="CENTER_LEFT" prefHeight="40.0" spacing="10.0" stylesheets="@../assets/style.css" VBox.vgrow="ALWAYS">
+                     <children>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/icones/settings.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="Paramètre" textFill="WHITE">
+                           <font>
+                              <Font name="SansSerif Bold" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="40.0" right="10.0" top="10.0" />
+                     </padding>
+                     <styleClass>
+                        <String fx:value="homeHbox" />
+                        <String fx:value="p" />
+                     </styleClass>
+                  </HBox>
+                  <HBox fx:id="profilebox" alignment="CENTER_LEFT" prefHeight="40.0" spacing="10.0" stylesheets="@../assets/style.css" VBox.vgrow="ALWAYS">
+                     <children>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label text="Mon profile" textFill="WHITE">
+                           <font>
+                              <Font name="SansSerif Bold" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="40.0" right="10.0" top="10.0" />
+                     </padding>
+                     <styleClass>
+                        <String fx:value="homeHbox" />
+                        <String fx:value="p" />
+                     </styleClass>
+                  </HBox>
+                  <HBox fx:id="aideBox" alignment="CENTER_LEFT" prefHeight="40.0" spacing="10.0" stylesheets="@../assets/style.css">
+                     <children>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/icones/help.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="Aide" textFill="WHITE">
+                           <font>
+                              <Font name="SansSerif Bold" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="40.0" right="10.0" top="10.0" />
+                     </padding>
+                     <styleClass>
+                        <String fx:value="homeHbox" />
+                        <String fx:value="p" />
+                     </styleClass>
                   </HBox>
                </children>
             </VBox>
          </children>
       </VBox>
-      <HBox styleClass="pane" stylesheets="@../assets/style.css" HBox.hgrow="ALWAYS">
+      <HBox styleClass="anchorpane" stylesheets="@../assets/style.css">
          <HBox.margin>
             <Insets />
          </HBox.margin>
