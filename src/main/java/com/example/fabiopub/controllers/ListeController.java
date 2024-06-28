@@ -25,7 +25,7 @@ import java.util.ResourceBundle;
 
 //import static javafx.scene.control.*;
 
-public class ListeController extends Homemain implements Initializable, CommandeInterface {
+public class ListeController extends Homemain implements Initializable {
     @FXML
     private StackPane commadeStackPane;
     public String show;
@@ -37,7 +37,7 @@ public class ListeController extends Homemain implements Initializable, Commande
     }
     @FXML
     private void onClient() throws IOException {
-        this.show = "FirstHome.fxml";
+        this.show = "ClientForm.fxml";
         reDirector(show);
     }
 
@@ -65,25 +65,9 @@ public class ListeController extends Homemain implements Initializable, Commande
         commadeStackPane.getChildren().setAll(root);
     }
 
-    @Override
-    public void create(Commande commande) throws SQLException {
-    }
 
-    @Override
-    public Commande update(Commande commande) throws SQLException {
-        return null;
-    }
 
-    @Override
-    public void delete(int id) {
-    }
-
-    @Override
-    public List<Commande> list() throws SQLException {
-        return List.of();
-    }
-
-    //    @FXML
+//    @FXML
 //    private void getData(){
 //        commande = commandeTable.getSelectionModel().getSelectedItem();
 //        IdCol.setId(commande.getId());

@@ -20,9 +20,9 @@ public class Commande implements CommandeInterface {
     private String clientName;
 
 
-    private Date dateOfCommande;
+    private String dateOfCommande;
 
-    private Date deliveryDate;
+    private String deliveryDate;
 
     private Float price;
 
@@ -64,19 +64,19 @@ public class Commande implements CommandeInterface {
         this.clientName = clientName;
     }
 
-    public Date getDateOfCommande() {
+    public String getDateOfCommande() {
         return dateOfCommande;
     }
 
-    public void setDateOfCommande(Date dateOfCommande) {
+    public void setDateOfCommande(String dateOfCommande) {
         this.dateOfCommande = dateOfCommande;
     }
 
-    public Date getDeliveryDate() {
+    public String getDeliveryDate() {
         return deliveryDate;
     }
 
-    public void setDeliveryDate(Date deliveryDate) {
+    public void setDeliveryDate(String deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
 
@@ -121,8 +121,8 @@ public class Commande implements CommandeInterface {
             preparedStatement.setString(1,commande.getNameOfCommande());
             preparedStatement.setString(2,commande.getType());
             preparedStatement.setString(3,commande.getClientName());
-            preparedStatement.setDate(4,commande.getDateOfCommande());
-            preparedStatement.setDate(5,commande.getDeliveryDate());
+            preparedStatement.setString(4,commande.getDateOfCommande());
+            preparedStatement.setString(5,commande.getDeliveryDate());
             preparedStatement.setFloat(6,commande.getPrice());
             preparedStatement.setString(7,commande.getQuantity());
             preparedStatement.setString(8,commande.getDescriptions());
@@ -143,8 +143,8 @@ public class Commande implements CommandeInterface {
                 preparedStatement.setString(1, nameOfCommande);
                 preparedStatement.setString(2, type);
                 preparedStatement.setString(3, clientName);
-                preparedStatement.setDate(4, dateOfCommande);
-                preparedStatement.setDate(5, deliveryDate);
+                preparedStatement.setString(4, dateOfCommande);
+                preparedStatement.setString(5, deliveryDate);
                 preparedStatement.setFloat(6, price);
                 preparedStatement.setString(7, quantity);
                 preparedStatement.setString(8, descriptions);
@@ -179,7 +179,7 @@ public class Commande implements CommandeInterface {
 
     @Override
     public List<Commande>list() throws SQLException {
-        List<Commande> commande = new ArrayList<>();
+        List<Commande> commandes = new ArrayList<>();
 
         connection = IDBconfig.getConnetion();
 
@@ -194,16 +194,17 @@ public class Commande implements CommandeInterface {
                 command.setNameOfCommande(resultSet.getString("nameOfCommande"));
                 command.setType(resultSet.getString("type"));
                 command.setClientName(resultSet.getString("clientName"));
-                command.setDateOfCommande(resultSet.getDate(valueOf("dateOfCommande")));
-                command.setDeliveryDate(resultSet.getDate(valueOf("deliveryDate")));
+                command.setDateOfCommande(resultSet.getString(valueOf("dateOfCommande")));
+                command.setDeliveryDate(resultSet.getString(valueOf("deliveryDate")));
                 command.setPrice(resultSet.getFloat(valueOf("price")));
                 command.setQuantity(resultSet.getString("quantity"));
                 command.setDescriptions(resultSet.getString("descriptions"));
 
-                commande.add(command);
+                commandes.add(command);
             }
 
+
         }
-        return commande;
+        return commandes;
     }
 }

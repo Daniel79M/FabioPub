@@ -17,40 +17,44 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class CommandeController implements Initializable, CommandeInterface{
-    @FXML
-    private Button AgreeButton;
-    @FXML
-    private javafx.scene.control.Button CancelButton;
-    @FXML
-    private Button updateButton;
-    @FXML
-    private Button deletebutton;
-    @FXML
-    private ObservableList<Commande> commandes ;
-    @FXML
-    private TableColumn<Commande, Integer> IdCol ;
-    @FXML
-    private TableColumn<Commande, String> clientCol;
-    @FXML
-    private TableView<Commande> commandeTable;
-    @FXML
-    private TableColumn<Commande, Date> dateCol ;
-    @FXML
-    private TableColumn<Commande, Date> deliveryCol ;
-    @FXML
-    private TableColumn<Commande, String> descriptionCol;
-    @FXML
-    private TableColumn<Commande, String> nameCol;
-    @FXML
-    private TableColumn<Commande, Float> priceCol;
-    @FXML
-    private TableColumn<Commande, String> quantityCol;
-    @FXML
-    private TableColumn<Commande, String> typeCol;
+public class CommandeController implements Initializable{
+
+//    @FXML
+//    private ObservableList<Commande> commandes ;
+//    @FXML
+//    private TableColumn<Commande, Integer> IdCol ;
+//    @FXML
+//    private TableColumn<Commande, String> clientCol;
+//    @FXML
+//    private TableView<Commande> commandeTable;
+//    @FXML
+//    private TableColumn<Commande, Date> dateCol ;
+//    @FXML
+//    private TableColumn<Commande, Date> deliveryCol ;
+//    @FXML
+//    private TableColumn<Commande, String> descriptionCol;
+//    @FXML
+//    private TableColumn<Commande, String> nameCol;
+//    @FXML
+//    private TableColumn<Commande, Float> priceCol;
+//    @FXML
+//    private TableColumn<Commande, String> quantityCol;
+//    @FXML
+//    private TableColumn<Commande, String> typeCol;
+@FXML
+private Button AgreeButton;
 
     @FXML
-    private TextField commandPriceTextField;
+    private Button CancelButton;
+
+    @FXML
+    private TextArea CommandeDescription;
+
+    @FXML
+    private TextField CommandePrice;
+
+    @FXML
+    private TextField CommandeQuantity;
 
     @FXML
     private TextField commandeClientNametTextField;
@@ -59,13 +63,10 @@ public class CommandeController implements Initializable, CommandeInterface{
     private DatePicker commandeDate;
 
     @FXML
-    private TextArea commandeDescriptionArea;
+    private DatePicker commandeDeliveryDate;
 
     @FXML
     private TextField commandeNameTextField;
-
-    @FXML
-    private TextField commandequantityTextField;
 
     @FXML
     private TextField commendTypeTextField;
@@ -73,8 +74,6 @@ public class CommandeController implements Initializable, CommandeInterface{
     @FXML
     private TextArea filesArea;
 
-    @FXML
-    private DatePicker commandeDeliveryDate;
 
     FileChooser fileChooser = new FileChooser();
 
@@ -91,15 +90,15 @@ public class CommandeController implements Initializable, CommandeInterface{
         String clientName = this.commandeClientNametTextField.getText().trim() ;
         Date dateOfCommande = Date.valueOf(this.commandeDate.getValue());
         Date deliveryDate = Date.valueOf(this.commandeDate.getValue());
-        String price = this.commandPriceTextField.getText();
-        String quantity = this.commandequantityTextField.getText();
-        String descriptions = this.commandeDescriptionArea.getText();
+        String price = this.CommandePrice.getText();
+        String quantity = this.CommandeQuantity.getText();
+        String descriptions = this.CommandeDescription.getText();
 
         Commande commande = new Commande();
         commande.setNameOfCommande(nameOfCommande);
         commande.setType(type);
         commande.setClientName(clientName);
-        commande.setDateOfCommande(dateOfCommande);
+        commande.setDateOfCommande(String.valueOf(dateOfCommande));
         try {
             commande.getDateOfCommande();
         }catch (Exception e){
@@ -111,7 +110,7 @@ public class CommandeController implements Initializable, CommandeInterface{
             return;
         }
         try {
-            commande.setDeliveryDate(deliveryDate);
+            commande.setDeliveryDate(String.valueOf(deliveryDate));
         }catch (Exception e){
 
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -136,80 +135,74 @@ public class CommandeController implements Initializable, CommandeInterface{
         commandeClientNametTextField.setText(null);
         commandeDate.setValue(null);
         commandeDeliveryDate.setValue(null);
-        commandPriceTextField.setText(null);
-        commandequantityTextField.setText(null);
-        commandeDescriptionArea.setText(null);
+        CommandePrice.setText(null);
+        CommandeQuantity.setText(null);
+        CommandeDescription.setText(null);
     }
 
 
+//    @FXML
+//    private void getData(){
+//        commande = commandeTable.getSelectionModel().getSelectedItem();
+//
+//        commandeNameTextField.setText(commande.getNameOfCommande());
+//        commendTypeTextField.setText(commande.getType());
+//        commandeClientNametTextField.setText(commande.getClientName());
+////        commandeDate.setValue(commande.getDateOfCommande());
+////        commandeDeliveryDate.setValue(commande.getDeliveryDate());
+////        commandPriceTextField.setText(commande.getPrice());
+//        commandequantityTextField.setText(commande.getQuantity());
+//        commandeDescriptionArea.setText(commande.getDescriptions());
+//        AgreeButton.setDisable(true);
+//
+//    }
+
     @FXML
-    private void getData(){
-        commande = commandeTable.getSelectionModel().getSelectedItem();
-
-        commandeNameTextField.setText(commande.getNameOfCommande());
-        commendTypeTextField.setText(commande.getType());
-        commandeClientNametTextField.setText(commande.getClientName());
-//        commandeDate.setValue(commande.getDateOfCommande());
-//        commandeDeliveryDate.setValue(commande.getDeliveryDate());
-//        commandPriceTextField.setText(commande.getPrice());
-        commandequantityTextField.setText(commande.getQuantity());
-        commandeDescriptionArea.setText(commande.getDescriptions());
-        AgreeButton.setDisable(true);
-
-    }
-
-    @FXML
-    void canceled(ActionEvent event) throws SQLException {
+    private void canceled() throws SQLException {
         commandeNameTextField.setText(null);
         commendTypeTextField.setText(null);
         commandeClientNametTextField.setText(null);
         commandeDate.setValue(null);
         commandeDeliveryDate.setValue(null);
-        commandPriceTextField.setText(null);
-        commandequantityTextField.setText(null);
-        commandeDescriptionArea.setText(null);
+        CommandePrice.setText(null);
+        CommandeQuantity.setText(null);
+        CommandeDescription.setText(null);
         AgreeButton.setDisable(false);
 //        readCommande();
     }
 
     public void readCommande() throws SQLException {
 
-        commandes = FXCollections.observableArrayList(list());
-
-        commandeTable.setItems(list());
-        IdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        nameCol.setCellValueFactory(new PropertyValueFactory<>("nameOfCommande"));
-        typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
-        clientCol.setCellValueFactory(new PropertyValueFactory<>("clientName"));
-        dateCol.setCellValueFactory(new PropertyValueFactory<>("dateOfCommande"));
-        deliveryCol.setCellValueFactory(new PropertyValueFactory<>("deliveryDate"));
-        priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
-        quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-        descriptionCol.setCellValueFactory(new PropertyValueFactory<>("descriptions"));
-        Commande commande = new Commande();
-        try {
-            commandes.addAll(commande.list());
-            commandeTable.setItems(commandes);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-    @FXML
-    private void updatecommande() throws SQLException {
-
-        commande.update(commande);
-
+//        commandes = FXCollections.observableArrayList(list());
+//
+//        commandeTable.setItems(list());
+//        IdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+//        nameCol.setCellValueFactory(new PropertyValueFactory<>("nameOfCommande"));
+//        typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+//        clientCol.setCellValueFactory(new PropertyValueFactory<>("clientName"));
+//        dateCol.setCellValueFactory(new PropertyValueFactory<>("dateOfCommande"));
+//        deliveryCol.setCellValueFactory(new PropertyValueFactory<>("deliveryDate"));
+//        priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+//        quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+//        descriptionCol.setCellValueFactory(new PropertyValueFactory<>("descriptions"));
+//        Commande commande = new Commande();
+//        try {
+//            commandes.addAll(commande.list());
+//            commandeTable.setItems(commandes);
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
 
     }
-
-    @FXML
-    void deleteCommande(ActionEvent event) throws SQLException {
-
-        commande.delete(id);
-//        readCommande();
-
-    }
+//    @FXML
+//    private void updatecommande() throws SQLException {
+//
+//        commande.update(commande);
+//
+//
+//    }
+//
+//
 
 
 //    FileChooser fileChooser = new FileChooser();
@@ -219,32 +212,7 @@ public class CommandeController implements Initializable, CommandeInterface{
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        try {
-            commandes = FXCollections.observableList(list());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            commandeTable.setItems(list());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        IdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        nameCol.setCellValueFactory(new PropertyValueFactory<>("nameOfCommande"));
-        typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
-        clientCol.setCellValueFactory(new PropertyValueFactory<>("clientName"));
-        dateCol.setCellValueFactory(new PropertyValueFactory<>("dateOfCommande"));
-        deliveryCol.setCellValueFactory(new PropertyValueFactory<>("deliveryDate"));
-        priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
-        quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-        descriptionCol.setCellValueFactory(new PropertyValueFactory<>("descriptions"));
-        Commande commande = new Commande();
-        try {
-            commandes.addAll(commande.list());
-            commandeTable.setItems(commandes);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+
 
 //        fileChooser.setInitialDirectory(new File("C:\\Users\\LENOVO\\OneDrive\\Bureau\\JAVA\\Javafx\\fabioPub\\src\\main\\resources\\com\\example\\fabiopub"));
 //
@@ -256,25 +224,25 @@ public class CommandeController implements Initializable, CommandeInterface{
 
     }
 
-    @Override
-    public void create(Commande commande) throws SQLException {
+//    @Override
+//    public void create(Commande commande) throws SQLException {
+//
+//    }
+//
+//    @Override
+//    public Commande update(Commande commande) throws SQLException {
+//        return null;
+//    }
+//
+//    @Override
+//    public void delete(int id) {
+//
+//    }
 
-    }
-
-    @Override
-    public Commande update(Commande commande) throws SQLException {
-        return null;
-    }
-
-    @Override
-    public void delete(int id) {
-
-    }
-
-    @Override
-    public ObservableList<Commande> list() throws SQLException {
-        return commandes;
-    }
+//    @Override
+//    public ObservableList<Commande> list() throws SQLException {
+//        return commandes;
+//    }
 
 
 //    public void getFiles(ActionEvent actionEvent) throws FileNotFoundException {

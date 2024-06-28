@@ -92,8 +92,9 @@ public class HomePage extends Homemain {
             user.setEmail(Email);
             user.Inscription(user);
             showInformationMessage("Information","Votre Inscription à été validé");
+            showPage("Fabio pub","connexion.fxml",email);
         }
-        showPage("Fabio pub","connexion.fxml",email);
+
 
     }
 
